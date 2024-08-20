@@ -3,7 +3,7 @@
 FROM docker.io/alpine AS build
 COPY scripts /scripts
 RUN ls scripts/
-RUN --mount=type=cache,target=/var/cache/llamafile /scripts/download.sh && cp /var/cache/llamafile/llamafile /llamafile
+RUN --mount=type=cache,target=/var/cache/llamafile /scripts/download-llamafile.sh && cp /var/cache/llamafile/llamafile /llamafile
 
 FROM docker.io/alpine
 COPY --from=build --chmod=755 /llamafile /usr/local/bin/llamafile
