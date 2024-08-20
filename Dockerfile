@@ -8,7 +8,8 @@ RUN --mount=type=cache,target=/var/cache/llamafile /scripts/download-llamafile.s
 FROM docker.io/alpine
 COPY --from=build --chmod=755 /llamafile /usr/local/bin/llamafile
 EXPOSE 8080
+ENV MODEL_PATH=/model
 
 # Define the entrypoint script
 ENTRYPOINT ["/bin/sh"]
-CMD ["/usr/local/bin/llamafile", "-m", "/model"]
+CMD ["-c", "/usr/local/bin/llamafile -m $MODEL_PATH --nobrowser --server --host 0.0.0.0"]
